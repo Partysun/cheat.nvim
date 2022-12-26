@@ -35,4 +35,6 @@ use {
 
 ## Usage
 
-Run `:Cheat` without any arguments to get a search prompt or with an argument to search for a term: `:Cheat python torch create a tensor scalar`
+Run `:Cheat` without any arguments to get a search prompt 
+
+or with an argument to search for a term: `:Cheat python torch create a tensor scalar`

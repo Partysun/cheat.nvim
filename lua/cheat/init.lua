@@ -52,86 +52,86 @@ local Cheat = {}
 
 Cheat.setup = function()
 
-	vim.api.nvim_create_user_command('Cheat', function(args)
-		if args.args ~= nil then
-			if string.len(args.args) > 1 then
-				Cheat.open_chtsh_popup(args.args)
-			else
-				Cheat.input()
-			end
-		else
-			Cheat.input()
-		end
-	end, { nargs = "?" }
-	)
+  vim.api.nvim_create_user_command('Cheat', function(args)
+    if args.args ~= nil then
+      if string.len(args.args) > 1 then
+        Cheat.open_chtsh_popup(args.args)
+      else
+        Cheat.input()
+      end
+    else
+      Cheat.input()
+    end
+  end, { nargs = "?" }
+  )
 
 end
 
 Cheat.input = function()
-	local input = Input({
+  local input = Input({
     position = {
       row = '25%',
       col = '50%',
     },
-		size = {
-			width = "60%",
-		},
-		border = {
-			style = "double",
-			text = {
-				top = "[Search cht.sh]",
-				top_align = "center",
+    size = {
+      width = "60%",
+    },
+    border = {
+      style = "double",
+      text = {
+        top = "[Search cht.sh]",
+        top_align = "center",
         bottom = ':help, TOPIC SUB, ~keyword'
-			},
-		},
-		win_options = {
-			winhighlight = "Normal:Normal,FloatBorder:Normal",
-		},
-	}, {
-		prompt = "> ",
-		default_value = "",
-		on_close = function()
-		end,
-		on_submit = function(value)
-			Cheat.open_chtsh_popup(value)
-		end,
-	})
+      },
+    },
+    win_options = {
+      winhighlight = "Normal:Normal,FloatBorder:Normal",
+    },
+  }, {
+    prompt = "> ",
+    default_value = "",
+    on_close = function()
+    end,
+    on_submit = function(value)
+      Cheat.open_chtsh_popup(value)
+    end,
+  })
 
-	-- mount/open the component
-	input:mount()
+  -- mount/open the component
+  input:mount()
 
-	-- unmount component when cursor leaves buffer
-	input:on(event.BufLeave, function()
-		input:unmount()
-	end)
+  -- unmount component when cursor leaves buffer
+  input:on(event.BufLeave, function()
+    input:unmount()
+  end)
 end
 
 -- Pops up a window containing the results of the search
 Cheat.open_chtsh_popup = function(search_query)
-	local popup = Popup({
-		enter = true,
-		focusable = true,
-		border = {
-			style = "double",
-			text = {
-				top = "[cht.sh]",
-				top_align = "center",
-			}
-		},
-		position = "50%",
-		size = {
-			width = "80%",
-			height = "60%",
-		},
-	})
+  local popup = Popup({
+    enter = true,
+    focusable = true,
+    border = {
+      style = "double",
+      text = {
+        top = "[cht.sh]",
+        top_align = "center",
+      }
+    },
+    position = "50%",
+    size = {
+      width = "80%",
+      height = "60%",
+    },
+  })
 
-	-- mount/open the component
-	popup:mount()
+  -- mount/open the component
+  popup:mount()
 
-	-- unmount component when cursor leaves buffer
-	popup:on(event.BufLeave, function()
-		popup:unmount()
-	end)
+  -- unmount component when cursor leaves buffer
+  popup:on(event.BufLeave, function()
+    popup:unmount()
+  end)
 
   local function previewer(articles)
     local lines = {}
@@ -144,7 +144,7 @@ Cheat.open_chtsh_popup = function(search_query)
   end
 
   fetch_cheats(search_query, previewer)
-	vim.keymap.set("n", "q", ":q!<cr>", { buffer = true })
+  vim.keymap.set("n", "q", ":q!<cr>", { buffer = true })
 
 end
 
